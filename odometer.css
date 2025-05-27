@@ -1,0 +1,80 @@
+.odometer {
+    display: inline-block;
+    margin-top: 0.2em;
+    height: 1.2em;
+    padding: 0 0.2em;
+    overflow: hidden;
+
+    width: calc(var(--odometer-width));
+    transition: width 0.4s ease;
+}
+
+.odometer-digit,
+.unit {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    position: relative;
+    margin: 0 -0.2em;
+}
+
+.separator {
+    display: inline-block;
+}
+
+.separator,
+.unit {
+    transform: translateY(calc(-1.4 * var(--odometer-gap)));
+}
+
+.unit:empty {
+    display: none;
+}
+
+.odometer-digit-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--odometer-gap);
+
+    animation-name: none;
+    animation-duration: var(--odometer-duration);
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+}
+
+.odometer-digit-inner span,
+.seprator,
+.unit {
+    height: 1em;
+    line-height: 1em;
+    text-align: center;
+}
+
+@keyframes normalScroll {
+    0% {
+        transform: translateY(var(--from));
+    }
+    100% {
+        transform: translateY(var(--to));
+    }
+}
+
+@keyframes squishyScroll {
+    0% {
+        transform: translateY(var(--from));
+    }
+    10% {
+        transform: translateY(calc((var(--from) + 0.2em)));
+    }
+    50% {
+        transform: translateY(var(--to)) scaleX(0.6) scaleX(0.95) scaleY(1.1);
+    }
+    70% {
+        transform: translateY(calc((var(--to) + 0.2em))) scaleX(1.1) scaleY(0.95);
+    }
+    100% {
+        transform: translateY(var(--to));
+    }
+}
