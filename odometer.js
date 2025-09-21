@@ -30,8 +30,7 @@
     function animateDigit(inner, fromDigit, toDigit, reduceMotion) {
         reduceMotion = reduceMotion === 'true';
         const fromY = -((fromDigit + 1) * (1 + gap));
-        const toDigitOffset = fromDigit > toDigit ? 10 : 0;
-        const toY = -((toDigit + 1 + toDigitOffset) * (1 + gap));
+        const toY = -((toDigit + 1) * (1 + gap));
         inner.dataset.digit = toDigit;
 
         inner.style.setProperty('--from', `${fromY}em`);
