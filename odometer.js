@@ -2,7 +2,7 @@
     const gap = 0.1;
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = './odometer.css';
+    link.href = 'https://bradydallama.github.io/odometer/odometer.css';
     document.head.appendChild(link);
 
     function createDigitElement() {
@@ -33,11 +33,8 @@
         const toY = -((toDigit + 1) * (1 + gap));
         inner.dataset.digit = toDigit;
 
-        const parentStyle = getComputedStyle(inner.parentElement);
-        const gapValue = parseFloat(parentStyle.getPropertyValue('--odometer-gap')) || gap;
-
         inner.style.setProperty('--from', `${fromY}em`);
-        inner.style.setProperty('--to', `${toY + gapValue}em`);
+        inner.style.setProperty('--to', `${toY}em`);
         inner.style.animationName = 'none';
         inner.offsetHeight;
         inner.style.animationName = reduceMotion ? 'normalScroll' : 'squishyScroll';
@@ -119,12 +116,16 @@
         const unitText = unitMatch ? unitMatch[0] : '';
         const displayVal = fullVal.replace(unitText, '');
 
+        const fullCharsSize = fullVal.replace(/[.,]/, '').length;
+        const separatorSize = fullVal.replace(/[^.,]/g, '').length;
+
         const unitDiv = el.querySelector('.unit');
         if (unitDiv) unitDiv.textContent = unitText;
 
         resizeOdometerDigits(el, displayVal);
 
         el._odometerTargetValue = displayVal;
+        el.style.setProperty('--odometer-width', `${fullCharsSize + 0.2 * separatorSize}ch`);
         stepOdometer(el);
     }
 
